@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{!--
+    <link rel="stylesheet" href="../public/stylesheets/style.css" /> --}}
+</head>
+
+<body>
+    <div>
+        <form method="POST" action="/blog/add">
+            <div class="row">
+                <div class="col">
+                    <label for="title">Title</label>
+                </div>
+                <div class="col">
+                    <input type="text" name="title" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="content">Content</label>
+                </div>
+                <div class="col">
+                    <textarea name="content" style="max-width: 400px; min-height: 200px; min-width: 400px" rows="4"
+                        cols="50"></textarea>
+                </div>
+            </div>
+            <input style="width: 100px; height: 40px" type="submit" value="Upload" />
+        </form>
+
+        {{#each blogs}}
+        <div style="display: flex; align-items: center; margin-top: 3rem;">
+            <h1 class="red">{{title}}</h1>
+            <form action="/blog/delete/{{id}}" method="DELETE">
+                <input type="submit" value="Delete" style="margin-left:30px; background-color:red;">
+            </form>
+        </div>
+        <p style="color: blue;">Content</p>
+        <p>{{content}}</p>
+        <div>
+            <hr style="width: 400px" />
+            <ul style="list-style-type:disc">
+                Comments:
+                {{#each comments}}
+                <li>
+                    <p></p>{{content}}</p>
+                </li>
+                {{/each}}
+            </ul>
+            <form action="/comment/add" method="POST">
+                <input type="hidden" name="idBlog" value={{id}}>
+                Comment: <input type="text" name="contentComment">
+                <input type="submit" value="Add comment">
+            </form>
+        </div>
+        {{/each}}
+    </div>
+</body>
+
+</html>
